@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h4>Number Guessing Game </h4>
+    <span id="message"></span>
+    <div id="game">
+        <input type="number" id="number">
+        <button id="guessButton">Guess</button>
+    </div>
+    <div id="pastGuesses"></div>
+    <script>
+        let game = document.getElementById('game');
+        let button = document.getElementById('guessButton');
+        let message = document.getElementById('message');
+        let result = Math.floor(Math.random() * 10);
+        let pastGuesses = document.getElementById('pastGuesses');
+        let guessMax = 10;
+        let arrayHistory = [];
+        button.addEventListener('click', function () {
+            let guessInput = document.getElementById("number").value;
+            arrayHistory.push(guessInput);
+            let guessLeft = guessMax - arrayHistory.length;
+            if (guessLeft === 0) {
+                game.style.display = 'none';
+                message.innerHTML = 'You have run out of guesses';
+                message.style.background = 'red';
+            }
+            else {
+                if (result > guessInput) {
+                    message.innerHTML = 'Your guess was too low, guess higher. You have ' + guessLeft + ' guesses left';
+                    message.style.background = 'red';
+                }
+                else if (result < guessInput) {
+                    message.innerHTML = 'Your guess was too high, guess low. You have ' + guessLeft + ' guesses left';
+                    message.style.background = 'red';
+                }
+                else {
+                    message.innerHTML = 'Yay. YOU ARE THE LORD OF THE GUESSES';
+                    message.style.background = 'green';
+                    result = Math.floor(Math.random() * 10);
+                    arrayHistory = [];
+                }
+            }
+            if (arrayHistory.length > 0)
+                pastGuesses.innerHTML = "Past guesses: " + arrayHistory.toString();
+        });
+    </script>
+</body>
+
+</html>
+
